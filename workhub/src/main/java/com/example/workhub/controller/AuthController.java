@@ -40,19 +40,19 @@ public class AuthController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    // ✅ HR login
+    
     @PostMapping("/login/hr")
     public ResponseEntity<?> loginHr(@Valid @RequestBody LoginRequest request) {
         return handleLogin(request.getUsername(), request.getPassword(), "hr");
     }
 
-    // ✅ Employee login
+    
     @PostMapping("/login/employee")
     public ResponseEntity<?> loginEmployee(@Valid @RequestBody EmployeeLoginRequest request) {
         return handleLogin(request.getEmployeeId(), request.getPassword(), "employee");
     }
 
-    // ✅ Shared login logic
+
     private ResponseEntity<?> handleLogin(String identifier, String password, String loginType) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -76,7 +76,7 @@ public class AuthController {
         }
     }
 
-    // ✅ HR registration
+    
     @PostMapping("/register/hr")
     public ResponseEntity<?> registerHr(@Valid @RequestBody RegisterRequest registerRequest) {
         User user = userService.registerUser(registerRequest);
@@ -84,7 +84,7 @@ public class AuthController {
         return createAuthResponse(jwt, UserPrincipal.create(user));
     }
 
-    // ✅ Employee registration
+    
     @PostMapping(value = "/register/employee", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> registerEmployee(
         @RequestPart("employeeId") String employeeId,
@@ -107,7 +107,7 @@ public class AuthController {
         return createAuthResponse(jwt, UserPrincipal.create(user));
     }
 
-    // ✅ Role validation logic
+    
     private void validateRole(String loginType, UserPrincipal userPrincipal) throws InvalidRoleException {
         Set<String> roles = userPrincipal.getAuthorities().stream()
             .map(item -> item.getAuthority())
@@ -122,7 +122,7 @@ public class AuthController {
         }
     }
 
-    // ✅ JWT response
+
     private ResponseEntity<Map<String, Object>> createAuthResponse(String jwt, UserPrincipal userPrincipal) {
         Set<String> roles = userPrincipal.getAuthorities().stream()
             .map(item -> item.getAuthority())
@@ -139,7 +139,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
   
-    // ✅ Forgot Password (for HR + Employee)
+    
 @PostMapping("/forgot-password")
 public ResponseEntity<Map<String, String>> forgotPassword(@RequestBody Map<String, String> request) {
     String email = request.get("email");
