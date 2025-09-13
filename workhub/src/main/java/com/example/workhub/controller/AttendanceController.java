@@ -29,7 +29,7 @@ public class AttendanceController {
 public ResponseEntity<AttendanceDto> getTodayAttendance(@PathVariable Long userId) {
     AttendanceDto dto = attendanceService.getTodayAttendance(userId);
     if (dto == null) {
-        return ResponseEntity.ok(null); // ✅ return 200 with null
+        return ResponseEntity.ok(null); 
     }
     return ResponseEntity.ok(dto);
 }
