@@ -1,0 +1,83 @@
+<div class="main-content">
+    <div class="header">
+    <h1>HR System Settings</h1>
+    </div>
+    <div class="settings-cards">
+      <!-- Account Management Card -->
+      <div class="settings-card" (click)="navigateTo('account-management')">
+        <div class="card-icon">
+          <i class="fas fa-user-cog"></i>
+        </div>
+        <h3>HR Account Management</h3>
+        <p>Manage HR user accounts and credentials</p>
+      </div>
+  
+      <!-- Roles & Permissions Card -->
+      <div class="settings-card" (click)="navigateTo('roles-permissions')">
+        <div class="card-icon">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <h3>Roles & Permissions</h3>
+        <p>Configure system access levels and privileges</p>
+      </div>
+  
+      <!-- System Configuration Card -->
+      <div class="settings-card" (click)="navigateTo('system-config')">
+        <div class="card-icon">
+          <i class="fas fa-cogs"></i>
+        </div>
+        <h3>System Configuration</h3>
+        <p>Set up holidays, shifts, and departments</p>
+      </div>
+  
+      <!-- Leave & Attendance Card -->
+      <div class="settings-card" (click)="navigateTo('leave-attendance')">
+        <div class="card-icon">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+        <h3>Leave & Attendance Rules</h3>
+        <p>Customize leave types and attendance policies</p>
+      </div>
+    </div>
+  
+    <div class="settings-stats">
+      <div class="stat-card">
+        <h4>Active HR Users</h4>
+        <p class="stat-value">{{ stats.activeUsers }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>System Roles</h4>
+        <p class="stat-value">{{ stats.systemRoles }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Upcoming Holidays</h4>
+        <p class="stat-value">{{ stats.upcomingHolidays }}</p>
+      </div>
+    </div>
+  
+    <div class="settings-actions">
+      <button class="action-button primary" (click)="backupSystem()">
+        <i class="fas fa-database"></i> Backup System
+      </button>
+      <button class="action-button secondary" (click)="auditLogs()">
+        <i class="fas fa-clipboard-list"></i> View Audit Logs
+      </button>
+    </div>
+  
+    <div class="recent-changes">
+      <h2>Recent Configuration Changes</h2>
+      <div class="change-item" *ngFor="let change of recentChanges">
+        <div class="change-header">
+          <h3>{{ change.type }}</h3>
+          <span class="change-date">{{ change.date }}</span>
+        </div>
+        <p class="change-description">{{ change.description }}</p>
+        <div class="change-footer">
+          <span class="change-author">Modified by {{ change.author }}</span>
+          <span class="change-status" [class]="'status-' + change.status.toLowerCase()">
+            {{ change.status }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>

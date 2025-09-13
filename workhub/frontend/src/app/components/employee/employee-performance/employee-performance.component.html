@@ -1,0 +1,142 @@
+<div class="performance-container">
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="header">
+        <h1>Performance</h1>
+        <div class="header-actions">
+          <button class="notification-btn" (click)="toggleNotifications()">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+          </button>
+          <button class="mobile-menu-btn" id="mobileMenuBtn" (click)="toggleSidebar()">
+            <i class="fas" [class.fa-bars]="!isSidebarActive" [class.fa-times]="isSidebarActive"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Performance Tabs -->
+      <div class="performance-tabs">
+        <div class="performance-tab" [class.active]="activeTab === 'reports'" (click)="changeTab('reports')">Performance Reports</div>
+        <div class="performance-tab" [class.active]="activeTab === 'feedback'" (click)="changeTab('feedback')">Manager Feedback</div>
+        <div class="performance-tab" [class.active]="activeTab === 'self-assessment'" (click)="changeTab('self-assessment')">Self-Assessment</div>
+      </div>
+      
+      <!-- Performance Reports Tab -->
+      <div class="tab-content" [class.active]="activeTab === 'reports'">
+        <div class="report-filters">
+          <select class="filter-select" [(ngModel)]="selectedPeriod" (change)="filterReports()">
+            <option value="all">All Periods</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+          <select class="filter-select" [(ngModel)]="selectedYear" (change)="filterReports()">
+            <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
+          </select>
+          <button class="btn btn-primary" (click)="exportAllReports()">
+            <i class="fas fa-download"></i> Export All Reports
+          </button>
+        </div>
+        
+        <div class="report-cards">
+          <!-- Report Cards -->
+          <div class="report-card" *ngFor="let report of filteredReports">
+            <div class="report-header">
+              <h3 class="report-title">{{ report.type }} Performance</h3>
+              <span class="report-period">{{ report.period }}</span>
+            </div>
+            <div class="report-metrics">
+              <div class="metric-item" *ngFor="let metric of report.metrics">
+                <div class="metric-label">
+                  <span class="metric-name">{{ metric.name }}</span>
+                  <span class="metric-value">{{ metric.value }}/5</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" [ngClass]="getProgressClass(metric.value)" [style.width.%]="(metric.value / 5) * 100"></div>
+                </div>
+              </div>
+            </div>
+            <div class="report-actions">
+              <button class="btn btn-primary" (click)="viewReportDetails(report)">
+                <i class="fas fa-eye"></i> View Details
+              </button>
+              <button class="btn btn-secondary" (click)="downloadReport(report)">
+                <i class="fas fa-download"></i> Download
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Manager Feedback Tab -->
+      <div class="tab-content" [class.active]="activeTab === 'feedback'">
+        <div class="feedback-item" *ngFor="let feedback of feedbacks">
+          <div class="feedback-header">
+            <div class="feedback-manager">
+              <div class="feedback-avatar">
+                <img [src]="feedback.manager.avatar" [alt]="feedback.manager.name">
+              </div>
+              <div class="feedback-info">
+                <h4>{{ feedback.manager.name }}</h4>
+                <p>{{ feedback.manager.position }}</p>
+              </div>
+            </div>
+            <div class="feedback-date">{{ feedback.date | date:'longDate' }}</div>
+          </div>
+          <div class="feedback-content">
+            <span class="feedback-category">{{ feedback.category }}</span>
+            <div class="feedback-text">
+              <p *ngFor="let paragraph of feedback.text">{{ paragraph }}</p>
+            </div>
+            <div class="feedback-rating" *ngFor="let rating of feedback.ratings">
+              <span class="rating-label">{{ rating.label }}:</span>
+              <span class="rating-stars">{{ getStars(rating.value) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Self-Assessment Tab -->
+      <div class="tab-content" [class.active]="activeTab === 'self-assessment'">
+        <div class="assessment-form">
+          <h3 style="margin-bottom: 1.5rem;">Quarterly Self-Assessment (Q2 2025)</h3>
+          
+          <div class="form-group">
+            <label for="accomplishments">Key Accomplishments</label>
+            <textarea id="accomplishments" class="form-control" [(ngModel)]="selfAssessment.accomplishments" placeholder="Describe your key achievements and contributions during this period..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="improvements">Areas for Improvement</label>
+            <textarea id="improvements" class="form-control" [(ngModel)]="selfAssessment.improvements" placeholder="What areas would you like to focus on improving in the next period?..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>Skill Development</label>
+            <div style="margin-bottom: 1rem;" *ngFor="let skill of selfAssessment.skills; let i = index">
+              <div class="rating-scale">
+                <span class="scale-label">Needs Improvement</span>
+                <span class="scale-label">Excellent</span>
+              </div>
+              <input type="range" min="1" max="5" [(ngModel)]="skill.value" class="form-control" style="padding: 0;" (input)="updateSlider($event, i)">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="goals">Goals for Next Period</label>
+            <textarea id="goals" class="form-control" [(ngModel)]="selfAssessment.goals" placeholder="What are your professional goals for the next quarter?..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="support">Support Needed</label>
+            <textarea id="support" class="form-control" [(ngModel)]="selfAssessment.support" placeholder="What support or resources do you need from your manager or the company to achieve your goals?..."></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <button class="btn btn-secondary" (click)="saveDraft()">Save Draft</button>
+            <button class="btn btn-primary" (click)="submitAssessment()">Submit Assessment</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

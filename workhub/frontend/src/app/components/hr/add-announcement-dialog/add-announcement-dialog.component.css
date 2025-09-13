@@ -1,0 +1,136 @@
+.add-announcement-dialog {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 10px;
+  animation: dialogFadeIn 0.25s ease-out;
+}
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.add-announcement-dialog h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-weight: 600;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-announcement-dialog mat-dialog-content {
+  padding: 20px 0;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-announcement-dialog mat-form-field {
+  width: 100%;
+}
+
+.add-announcement-dialog textarea {
+  min-height: 100px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 10px;
+  line-height: 1.5;
+}
+
+.add-announcement-dialog mat-checkbox {
+  margin-top: 10px;
+  color: #2c3e50;
+}
+
+.add-announcement-dialog mat-dialog-actions {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Buttons */
+.add-announcement-dialog button[mat-button] {
+  color: black;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.add-announcement-dialog button[color="primary"] {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.add-announcement-dialog button[color="primary"]:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #1f6399 100%);
+  box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Focus Outline for Fields */
+.mdc-text-field--focused .mdc-notched-outline .mdc-text-field__input {
+  border-color: #3498db !important;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  padding-left: 200px;
+}
+
+/* Chips for Departments */
+.add-announcement-dialog .mat-chip {
+  background-color: #3498db;
+  color: white;
+}
+
+.add-announcement-dialog .mat-chip-remove {
+  color: white;
+  opacity: 0.8;
+}
+
+.add-announcement-dialog mat-form-field input[matInput] {
+  padding-left: 8px;
+  color:#493f3f;
+}
+
+.add-announcement-dialog mat-form-field input[matInput]::placeholder {
+  text-indent: 8px;
+}
+.add-announcement-dialog mat-form-field textarea[matInput] {
+  padding-left: 8px;
+  color:#493f3f;
+}
+
+/* Responsive Styling */
+@media (max-width: 600px) {
+  .add-announcement-dialog {
+    padding: 0;
+  }
+
+  .add-announcement-dialog mat-dialog-content {
+    padding: 10px;
+  }
+
+  .add-announcement-dialog mat-dialog-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .add-announcement-dialog button[mat-button],
+  .add-announcement-dialog button[color="primary"] {
+    width: 100%;
+  }
+}

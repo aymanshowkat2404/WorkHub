@@ -1,0 +1,83 @@
+<div class="main-content">
+  <div class="header">
+    <h1>Announcements Center</h1>
+  </div> 
+    <div class="announcements-cards">
+      <!-- Post Announcements Card -->
+      <div class="announcements-card" (click)="navigateTo('post-announcements')">
+        <div class="card-icon">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <h3>Post Announcements</h3>
+        <p>Create and publish company-wide announcements</p>
+      </div>
+  
+      <!-- Send Notifications Card -->
+      <div class="announcements-card" (click)="navigateTo('send-notifications')">
+        <div class="card-icon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <h3>Send Notifications</h3>
+        <p>Push important alerts to employees</p>
+      </div>
+  
+      <!-- Internal Memos Card -->
+      <div class="announcements-card" (click)="navigateTo('internal-memos')">
+        <div class="card-icon">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <h3>Internal Memos</h3>
+        <p>Create and distribute internal communications</p>
+      </div>
+  
+      <!-- HR FAQs Card -->
+      <div class="announcements-card" (click)="navigateTo('hr-faqs')">
+        <div class="card-icon">
+          <i class="fas fa-question-circle"></i>
+        </div>
+        <h3>HR FAQs & Policies</h3>
+        <p>Manage and update company policies and FAQs</p>
+      </div>
+    </div>
+  
+    <div class="announcements-stats">
+      <div class="stat-card">
+        <h4>Today's Announcements</h4>
+        <p class="stat-value">{{ stats.todaysAnnouncements }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Unread Notifications</h4>
+        <p class="stat-value">{{ stats.unreadNotifications }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Pending Approvals</h4>
+        <p class="stat-value">{{ stats.pendingApprovals }}</p>
+      </div>
+    </div>
+  
+    <div class="announcements-actions">
+      <button class="action-button primary" (click)="createAnnouncement()">
+        <i class="fas fa-plus-circle"></i> New Announcement
+      </button>
+      <button class="action-button secondary" (click)="scheduleBroadcast()">
+        <i class="fas fa-clock"></i> Schedule Broadcast
+      </button>
+    </div>
+  
+    <div class="recent-announcements">
+      <h2>Recent Announcements</h2>
+      <div class="announcement-item" *ngFor="let announcement of recentAnnouncements">
+        <div class="announcement-header">
+          <h3>{{ announcement.title }}</h3>
+          <span class="announcement-date">{{ announcement.date }}</span>
+        </div>
+        <p class="announcement-preview">{{ announcement.preview }}</p>
+        <div class="announcement-footer">
+          <span class="announcement-author">By {{ announcement.author }}</span>
+          <span class="announcement-views">
+            <i class="fas fa-eye"></i> {{ announcement.views }} views
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,54 @@
+/* Add Event Dialog Styling */
+.add-event-dialog {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .add-event-dialog h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .add-event-dialog mat-dialog-content {
+    padding: 20px 0;
+  }
+  
+  .add-event-dialog mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .add-event-dialog .datetime-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .add-event-dialog .datetime-row mat-form-field {
+    flex: 1;
+  }
+  
+  .add-event-dialog mat-dialog-actions {
+    padding: 15px 0 0;
+    justify-content: flex-end;
+  }
+  
+  .add-event-dialog button[mat-button] {
+    margin-right: 10px;
+    color: #7f8c8d;
+  }
+  
+  .add-event-dialog button[color="primary"] {
+    background-color: #2ecc71;
+    color: white;
+  }
+  
+  .add-event-dialog button[color="primary"]:hover {
+    background-color: #27ae60;
+  }
+  
+  /* Time input styling */
+  .add-event-dialog .mat-timepicker-toggle {
+    color: #2ecc71;
+  }

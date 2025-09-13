@@ -1,0 +1,139 @@
+.notifications-dialog {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .notifications-dialog h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .notifications-list {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+  
+  .notification-item {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .notification-item:last-child {
+    border-bottom: none;
+  }
+  
+  .notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e3f2fd;
+    color: #1976d2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .notification-icon.unread {
+    background-color: #bbdefb;
+    color: #0d47a1;
+  }
+  
+  .notification-content {
+    flex: 1;
+  }
+  
+  .notification-title {
+    margin: 0 0 4px;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .notification-time {
+    margin: 0 0 6px;
+    font-size: 0.8rem;
+    color: #7f8c8d;
+  }
+  
+  .notification-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #34495e;
+    line-height: 1.4;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 40px 0;
+    color: #7f8c8d;
+  }
+  
+  .empty-state mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    color: #bdc3c7;
+  }
+  
+  .empty-state p {
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  mat-dialog-actions {
+    padding: 16px 0 0;
+    margin-top: 16px;
+    border-top: 1px solid #eee;
+  }
+  
+  mat-dialog-actions button {
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Scrollbar styling */
+  .notifications-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .notifications-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  
+  .notifications-list::-webkit-scrollbar-thumb {
+    background: #bdc3c7;
+    border-radius: 3px;
+  }
+  
+  .notifications-list::-webkit-scrollbar-thumb:hover {
+    background: #95a5a6;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .notification-item {
+      gap: 12px;
+      padding: 10px 0;
+    }
+    
+    .notification-icon {
+      width: 36px;
+      height: 36px;
+    }
+    
+    .notification-title {
+      font-size: 0.95rem;
+    }
+    
+    .notification-desc {
+      font-size: 0.85rem;
+    }
+  }

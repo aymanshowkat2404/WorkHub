@@ -1,0 +1,66 @@
+<div class="main-content">
+  <div class="header">
+    <h1>Recruitment Portal</h1>
+  </div>
+    <div class="recruitment-cards">
+      <!-- Post Job Openings Card -->
+      <div class="recruitment-card" (click)="navigateTo('post-jobs')">
+        <div class="card-icon">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <h3>Post Job Openings</h3>
+        <p>Create and publish new job opportunities</p>
+      </div>
+  
+      <!-- Track Applicants Card -->
+      <div class="recruitment-card" (click)="navigateTo('track-applicants')">
+        <div class="card-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3>Track Applicants</h3>
+        <p>Manage and review all candidate applications</p>
+      </div>
+  
+      <!-- Schedule Interviews Card -->
+      <div class="recruitment-card" (click)="navigateTo('schedule-interviews')">
+        <div class="card-icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <h3>Schedule Interviews</h3>
+        <p>Arrange and manage interview sessions</p>
+      </div>
+  
+      <!-- Onboarding Checklist Card -->
+      <div class="recruitment-card" (click)="navigateTo('onboarding')">
+        <div class="card-icon">
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+        <h3>Onboarding Checklist</h3>
+        <p>Manage new hire onboarding process</p>
+      </div>
+  
+      <!-- Document Collection Card -->
+      <div class="recruitment-card" (click)="navigateTo('documents')">
+        <div class="card-icon">
+          <i class="fas fa-file-upload"></i>
+        </div>
+        <h3>Document Collection</h3>
+        <p>Collect and verify candidate documents</p>
+      </div>
+    </div>
+  
+    <div class="recruitment-stats">
+      <div class="stat-card">
+        <h4>Open Positions</h4>
+        <p class="stat-value">{{ stats.openPositions }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Active Applicants</h4>
+        <p class="stat-value">{{ stats.activeApplicants }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Interviews Today</h4>
+        <p class="stat-value">{{ stats.interviewsToday }}</p>
+      </div>
+    </div>
+</div>

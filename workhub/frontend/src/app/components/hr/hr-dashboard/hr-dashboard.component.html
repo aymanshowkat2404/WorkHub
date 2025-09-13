@@ -1,0 +1,155 @@
+<div class="main-content">
+    <div class="header">
+        <h1>HR Dashboard Overview</h1>
+        <div class="header-actions">
+            <button class="btn btn-primary" (click)="addEmployee()">
+                <i class="fas fa-plus"></i> Add Employee
+            </button>
+            <button class="btn btn-secondary" (click)="refreshData()">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <button class="notification-btn" (click)="openNotifications()">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+            </button>
+            <button class="mobile-menu-btn" (click)="toggleSidebar()">
+                <i class="fas" [class.fa-bars]="!isSidebarActive" [class.fa-times]="isSidebarActive"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card primary">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-value">{{ stats.totalEmployees }}</div>
+            <div class="stat-label">Total Employees</div>
+        </div>
+        
+        <div class="stat-card success">
+            <div class="stat-icon">
+                <i class="fas fa-user-check"></i>
+            </div>
+            <div class="stat-value">{{ stats.activeEmployees }}</div>
+            <div class="stat-label">Active Employees</div>
+        </div>
+        
+        <div class="stat-card warning">
+            <div class="stat-icon">
+                <i class="fas fa-calendar-minus"></i>
+            </div>
+            <div class="stat-value">{{ stats.onLeaveToday }}</div>
+            <div class="stat-label">On Leave Today</div>
+        </div>
+        
+        <div class="stat-card danger">
+            <div class="stat-icon">
+                <i class="fas fa-user-minus"></i>
+            </div>
+            <div class="stat-value">{{ stats.resignedThisMonth }}</div>
+            <div class="stat-label">Resigned This Month</div>
+        </div>
+        
+        <div class="stat-card info">
+            <div class="stat-icon">
+                <i class="fas fa-birthday-cake"></i>
+            </div>
+            <div class="stat-value">{{ stats.upcomingBirthdays }}</div>
+            <div class="stat-label">Upcoming Birthdays</div>
+        </div>
+    </div>
+    
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid">
+        <!-- Recent Leave Requests -->
+        <div class="dashboard-card leave-requests">
+            <div class="card-header">
+                <h2>Recent Leave Requests</h2>
+                <div class="actions">
+                    <button class="btn btn-secondary btn-sm" (click)="viewAllLeaveRequests()">
+                        <i class="fas fa-eye"></i> View All
+                    </button>
+                </div>
+            </div>
+            
+            <div class="leave-item" *ngFor="let request of leaveRequests">
+                <div class="leave-avatar">
+                    <img [src]="request.avatar" [alt]="request.name">
+                </div>
+                <div class="leave-details">
+                    <h4>{{ request.name }}</h4>
+                    <div class="leave-meta">
+                        <span>{{ request.type }}</span>
+                        <span>{{ request.dates }}</span>
+                        <span>{{ request.duration }}</span>
+                    </div>
+                </div>
+                <div class="leave-status" [class.status-pending]="request.status === 'Pending'" 
+                                      [class.status-approved]="request.status === 'Approved'">
+                    {{ request.status }}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Upcoming Events -->
+        <div class="dashboard-card events-card">
+            <div class="card-header">
+                <h2>Upcoming Events</h2>
+                <div class="actions">
+                    <button class="btn btn-secondary btn-sm" (click)="addEvent()">
+                        <i class="fas fa-calendar-plus"></i> Add
+                    </button>
+                </div>
+            </div>
+            
+            <div class="event-item" *ngFor="let event of upcomingEvents">
+                <div class="event-date">{{ event.date }}</div>
+                <div class="event-title">{{ event.title }}</div>
+                <div class="event-desc">{{ event.description }}</div>
+            </div>
+        </div>
+        
+        <!-- Announcements -->
+        <div class="dashboard-card announcements-card">
+            <div class="card-header">
+                <h2>Latest Announcements</h2>
+                <div class="actions">
+                    <button class="btn btn-secondary btn-sm" (click)="createAnnouncement()">
+                        <i class="fas fa-bullhorn"></i> New
+                    </button>
+                </div>
+            </div>
+            
+            <div class="announcement-item" *ngFor="let announcement of announcements">
+                <div class="announcement-title">{{ announcement.title }}</div>
+                <div class="announcement-meta">Posted: {{ announcement.postedDate }} by {{ announcement.postedBy }}</div>
+                <div class="announcement-desc">{{ announcement.description }}</div>
+            </div>
+        </div>
+        
+        <!-- HR Notifications -->
+        <div class="dashboard-card notifications-card">
+            <div class="card-header">
+                <h2>HR Notifications</h2>
+                <div class="actions">
+                    <button class="btn btn-secondary btn-sm" (click)="markAllAsRead()">
+                        <i class="fas fa-check"></i> Mark All Read
+                    </button>
+                </div>
+            </div>
+            
+            <div class="notification-item" *ngFor="let notification of notifications">
+                <div class="notification-icon">
+                    <i [class]="notification.icon"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">{{ notification.title }}</div>
+                    <div class="notification-meta">{{ notification.time }}</div>
+                    <div class="notification-desc">{{ notification.description }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

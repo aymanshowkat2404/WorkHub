@@ -1,0 +1,75 @@
+<div class="main-content">
+  <div class="header">
+    <h1>Performance Management</h1>
+  </div>
+    <div class="performance-cards">
+      <!-- Assign KPIs Card -->
+      <div class="performance-card" (click)="navigateTo('assign-kpis')">
+        <div class="card-icon">
+          <i class="fas fa-bullseye"></i>
+        </div>
+        <h3>Assign KPIs/Goals</h3>
+        <p>Set and assign key performance indicators and objectives</p>
+      </div>
+  
+      <!-- View Reports Card -->
+      <div class="performance-card" (click)="navigateTo('view-reports')">
+        <div class="card-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>View Performance Reports</h3>
+        <p>Access detailed performance analytics and metrics</p>
+      </div>
+  
+      <!-- Review Ratings Card -->
+      <div class="performance-card" (click)="navigateTo('review-ratings')">
+        <div class="card-icon">
+          <i class="fas fa-star-half-alt"></i>
+        </div>
+        <h3>Review Ratings/Feedback</h3>
+        <p>Evaluate employee ratings and manager feedback</p>
+      </div>
+  
+      <!-- Manage Appraisals Card -->
+      <div class="performance-card" (click)="navigateTo('manage-appraisals')">
+        <div class="card-icon">
+          <i class="fas fa-clipboard-list"></i>
+        </div>
+        <h3>Manage Appraisals</h3>
+        <p>Conduct and oversee performance appraisal cycles</p>
+      </div>
+  
+      <!-- Generate Reports Card -->
+      <div class="performance-card" (click)="navigateTo('generate-reports')">
+        <div class="card-icon">
+          <i class="fas fa-file-export"></i>
+        </div>
+        <h3>Generate Reports</h3>
+        <p>Create comprehensive performance reports</p>
+      </div>
+    </div>
+  
+    <div class="performance-stats">
+      <div class="stat-card">
+        <h4>Pending Reviews</h4>
+        <p class="stat-value">{{ stats.pendingReviews }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Current Cycle</h4>
+        <p class="stat-value">{{ stats.currentCycle }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Avg. Rating</h4>
+        <p class="stat-value">{{ stats.averageRating }}/5</p>
+      </div>
+    </div>
+  
+    <div class="performance-actions">
+      <button class="action-button primary" (click)="startAppraisalCycle()">
+        <i class="fas fa-play"></i> Start Appraisal Cycle
+      </button>
+      <button class="action-button secondary" (click)="sendReminders()">
+        <i class="fas fa-bell"></i> Send Reminders
+      </button>
+    </div>
+  </div>

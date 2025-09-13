@@ -1,0 +1,246 @@
+<div class="main-content">
+    <div class="header">
+        <h1>Attendance & Leave Management</h1>
+        <div class="header-actions">
+            <button class="notification-btn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </button>
+            <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+                <i class="fas" [class.fa-bars]="!mobileMenuOpen" [class.fa-times]="mobileMenuOpen"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Tabs Navigation -->
+    <div class="tabs">
+        <div class="tab" [class.active]="activeTab === 'attendance'" (click)="setActiveTab('attendance')">Attendance</div>
+        <div class="tab" [class.active]="activeTab === 'leave'" (click)="setActiveTab('leave')">Leave Management</div>
+    </div>
+    
+    <!-- Attendance Tab Content -->
+    <div class="tab-content" [class.active]="activeTab === 'attendance'">
+        <!-- Clock In/Out Section -->
+        <div class="card clock-section">
+            <div class="clock-status">
+                You are currently <strong>{{ isClockedIn ? 'clocked in since ' + clockInTime : 'not clocked in' }}</strong>
+            </div>
+            <div class="clock-time">
+                {{ currentTime | date:'hh:mm a' }}
+            </div>
+            <div>
+                <button class="btn btn-success clock-btn" (click)="clockIn()" [disabled]="isClockedIn">
+                    <i class="fas fa-sign-in-alt"></i> Clock In
+                </button>
+                <button class="btn btn-danger clock-btn" (click)="clockOut()" [disabled]="!isClockedIn">
+                    <i class="fas fa-sign-out-alt"></i> Clock Out
+                </button>
+            </div>
+            <div class="current-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Location: {{ currentLocation }}</span>
+            </div>
+        </div>
+
+        <!-- Attendance Overview -->
+        <div class="stats-grid">
+            <div class="card stat-card">
+                <div class="stat-icon icon-present">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-number">{{ attendanceStats.present }}</div>
+                <div class="stat-label">Days Present This Month</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-icon icon-absent">
+                    <i class="fas fa-user-times"></i>
+                </div>
+                <div class="stat-number">{{ attendanceStats.absent }}</div>
+                <div class="stat-label">Absences This Month</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-icon icon-late">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-number">{{ attendanceStats.late }}</div>
+                <div class="stat-label">Late Arrivals</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-icon icon-leave">
+                    <i class="fas fa-umbrella-beach"></i>
+                </div>
+                <div class="stat-number">{{ leaveBalance.annual }}</div>
+                <div class="stat-label">Leave Days Remaining</div>
+            </div>
+        </div>
+
+        <!-- Calendar Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">My Attendance Calendar</h3>
+                <div class="calendar-nav">
+                    <button class="calendar-nav-btn" (click)="changeMonth(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="calendar-month">{{ currentMonthName }} {{ currentYear }}</div>
+                    <button class="calendar-nav-btn" (click)="changeMonth(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="calendar-grid">
+                <div class="calendar-day-header">Sun</div>
+                <div class="calendar-day-header">Mon</div>
+                <div class="calendar-day-header">Tue</div>
+                <div class="calendar-day-header">Wed</div>
+                <div class="calendar-day-header">Thu</div>
+                <div class="calendar-day-header">Fri</div>
+                <div class="calendar-day-header">Sat</div>
+                
+                <!-- Calendar days -->
+                <ng-container *ngFor="let day of calendarDays">
+                    <div class="calendar-day" 
+                         [class.day-other-month]="!day.isCurrentMonth"
+                         [class.day-today]="day.isToday"
+                         (click)="selectDay(day)">
+                        <div class="day-number">{{ day.date }}</div>
+                        <div class="day-status" [class.status-present]="day.status === 'present'"
+                                             [class.status-absent]="day.status === 'absent'"
+                                             [class.status-late]="day.status === 'late'"
+                                             [class.status-leave]="day.status === 'leave'"></div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+        <!-- Attendance Records -->
+        <div class="card">
+            <div class="section-header">
+                <h3 class="section-title">My Attendance Records</h3>
+                <div class="section-actions">
+                    <select class="filter-control" [(ngModel)]="recordFilter" (change)="filterRecords()">
+                        <option value="all">All Records</option>
+                        <option value="present">Present</option>
+                        <option value="absent">Absent</option>
+                        <option value="late">Late</option>
+                        <option value="leave">On Leave</option>
+                    </select>
+                    <input type="text" class="filter-control" placeholder="Search by date..." 
+                           [(ngModel)]="searchTerm" (input)="filterRecords()">
+                </div>
+            </div>
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Check-In</th>
+                        <th>Check-Out</th>
+                        <th>Hours Worked</th>
+                        <th>Status</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let record of filteredRecords">
+                        <td>{{ record.date | date:'MMM d, y' }}</td>
+                        <td>{{ record.checkIn || '-' }}</td>
+                        <td>{{ record.checkOut || '-' }}</td>
+                        <td>{{ record.hoursWorked || '-' }}</td>
+                        <td>
+                            <span class="badge" 
+                                  [class.badge-success]="record.status === 'present'"
+                                  [class.badge-warning]="record.status === 'late'"
+                                  [class.badge-info]="record.status === 'leave'"
+                                  [class.badge-danger]="record.status === 'absent'">
+                                {{ record.status | titlecase }}
+                            </span>
+                        </td>
+                        <td>{{ record.notes || '-' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Leave Management Tab Content -->
+    <div class="tab-content" [class.active]="activeTab === 'leave'">
+        <div class="card">
+            <h2 class="card-title">My Leave Balance</h2>
+            <div class="leave-balance">
+                <div class="balance-item">
+                    <h3>{{ leaveBalance.annual }}</h3>
+                    <p>Annual Leave</p>
+                </div>
+                <div class="balance-item">
+                    <h3>{{ leaveBalance.sick }}</h3>
+                    <p>Sick Leave</p>
+                </div>
+                <div class="balance-item">
+                    <h3>{{ leaveBalance.casual }}</h3>
+                    <p>Casual Leave</p>
+                </div>
+                <div class="balance-item">
+                    <h3>{{ leaveBalance.emergency }}</h3>
+                    <p>Emergency Leave</p>
+                </div>
+            </div>
+            
+            <h2 class="card-title">Apply for Leave</h2>
+            <form class="leave-form" (ngSubmit)="submitLeaveApplication()" #leaveForm="ngForm">
+                <div class="form-group">
+                    <label for="leaveType">Leave Type</label>
+                    <select id="leaveType" class="form-control" [(ngModel)]="leaveApplication.type" name="type" required>
+                        <option value="">Select Leave Type</option>
+                        <option value="annual">Annual Leave</option>
+                        <option value="sick">Sick Leave</option>
+                        <option value="casual">Casual Leave</option>
+                        <option value="emergency">Emergency Leave</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate" class="form-control" 
+                           [(ngModel)]="leaveApplication.startDate" name="startDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" class="form-control" 
+                           [(ngModel)]="leaveApplication.endDate" name="endDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reason">Reason</label>
+                    <textarea id="reason" class="form-control" rows="3" 
+                              [(ngModel)]="leaveApplication.reason" name="reason" required
+                              placeholder="Briefly explain the reason for leave"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+            </form>
+        </div>
+        
+        <!-- Leave History Section -->
+        <div class="card">
+            <h2 class="card-title">Leave History</h2>
+            <div class="leave-history">
+                <div class="leave-item" *ngFor="let leave of leaveHistory">
+                    <div class="leave-info">
+                        <div class="leave-type">{{ leave.type | titlecase }} Leave</div>
+                        <div class="leave-dates">
+                            {{ leave.startDate | date:'d MMM y' }} - {{ leave.endDate | date:'d MMM y' }} 
+                            ({{ calculateLeaveDays(leave.startDate, leave.endDate) }} days)
+                        </div>
+                    </div>
+                    <div class="leave-status" 
+                         [class.status-approved]="leave.status === 'approved'"
+                         [class.status-pending]="leave.status === 'pending'"
+                         [class.status-rejected]="leave.status === 'rejected'">
+                        {{ leave.status | titlecase }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Add New Event</h2>
+<mat-dialog-content class="add-event-dialog">
+  <form [formGroup]="eventForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Event Title</mat-label>
+      <input matInput formControlName="title" required>
+      <mat-error>Title is required</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="3"></textarea>
+    </mat-form-field>
+    
+    <div class="datetime-row">
+      <mat-form-field appearance="fill">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="eventPicker" formControlName="date" required>
+        <mat-datepicker-toggle matSuffix [for]="eventPicker"></mat-datepicker-toggle>
+        <mat-datepicker #eventPicker></mat-datepicker>
+        <mat-error>Date is required</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill">
+        <mat-label>Time</mat-label>
+        <input matInput [ngxTimepicker]="timepicker" formControlName="time" required>
+        <ngx-material-timepicker #timepicker></ngx-material-timepicker>
+        <mat-error>Time is required</mat-error>
+      </mat-form-field>
+    </div>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location">
+    </mat-form-field>
+    
+    <mat-checkbox formControlName="isCompanyWide">Company-wide event</mat-checkbox>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" 
+          [disabled]="!eventForm.valid">Add Event</button>
+</mat-dialog-actions>

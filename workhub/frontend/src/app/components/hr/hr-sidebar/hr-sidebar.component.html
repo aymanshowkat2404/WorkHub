@@ -1,0 +1,35 @@
+<div class="sidebar" [class.active]="isSidebarActive">
+    <div class="sidebar-header">
+        <div class="logo">
+            <i class="fas fa-users"></i>
+            <span>WorkHub</span>
+        </div>
+    </div>
+    
+    <div class="sidebar-menu">
+        <h3>Main</h3>
+        <ul>
+            <li><a routerLink="/dashboard" routerLinkActive="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a routerLink="/hremployee" routerLinkActive="active"><i class="fas fa-user-friends"></i> Employee Management</a></li>
+            <li><a routerLink="/hrleave" routerLinkActive="active"><i class="fas fa-calendar-minus"></i> Leave & Attendance Management</a></li>
+            <li><a routerLink="/hrrecruitment" routerLinkActive="active"><i class="fas fa-user-plus"></i> Recruitment</a></li>
+            <li><a routerLink="/hrpayroll" routerLinkActive="active"><i class="fas fa-file-invoice-dollar"></i> Payroll</a></li>
+            <li><a routerLink="/hrperformance" routerLinkActive="active"><i class="fas fa-chart-line"></i> Performance</a></li>
+            <li><a routerLink="/hrannouncements" routerLinkActive="active"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+            <li><a routerLink="/hrsupport" routerLinkActive="active"><i class="fas fa-headset"></i> Support</a></li>
+            <li><a routerLink="/hrsettings" routerLinkActive="active"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>
+    </div>
+    
+    <div class="sidebar-footer">
+        <div class="user-profile">
+            <div class="user-info">
+                <h4>{{ userName }}</h4>
+                <p>HR Manager</p>
+            </div>
+        </div>
+        <button class="logout-btn" *ngIf="!isCollapsed" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+</div>

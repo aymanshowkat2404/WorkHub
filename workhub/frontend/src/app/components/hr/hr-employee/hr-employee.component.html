@@ -1,0 +1,107 @@
+<div class="main-content">
+    <div class="header">
+      <h1>Employee Management</h1>
+      <div class="actions">
+        <button class="btn btn-primary" (click)="openAddEmployeeModal()">
+          <i class="fas fa-user-plus"></i> Add New Employee
+        </button>
+        <button class="btn btn-secondary" (click)="generateIdCards()">
+          <i class="fas fa-id-card"></i> Generate ID Cards
+        </button>
+      </div>
+    </div>
+  
+    <!-- Search and Filter Section -->
+    <div class="search-filter-section">
+      <div class="search-box">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search employees..." 
+               (input)="filterEmployees()">
+        <i class="fas fa-search"></i>
+      </div>
+      
+      <div class="filters">
+        <select [(ngModel)]="departmentFilter" (change)="filterEmployees()">
+          <option value="">All Departments</option>
+          <option *ngFor="let dept of departments" [value]="dept">{{dept}}</option>
+        </select>
+        
+        <select [(ngModel)]="statusFilter" (change)="filterEmployees()">
+          <option value="">All Statuses</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+          <option value="on_leave">On Leave</option>
+        </select>
+      </div>
+    </div>
+  
+    <!-- Employee Table -->
+    <div class="table-responsive">
+      <table class="employee-table">
+        <thead>
+          <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Position</th>
+            <th>Manager</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of filteredEmployees">
+            <td>{{employee.employeeId}}</td>
+            <td>
+              <div class="employee-info">
+                <img [src]="employee.photo || 'assets/images/default-avatar.png'" 
+                     alt="{{employee.firstName}} {{employee.lastName}}" class="employee-avatar">
+                {{employee.firstName}} {{employee.lastName}}
+              </div>
+            </td>
+            <td>{{employee.department}}</td>
+            <td>{{employee.position}}</td>
+            <td>{{employee.manager ? employee.manager : '-'}}</td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(employee.status)">
+                {{employee.status | titlecase}}
+              </span>
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn-icon" (click)="viewEmployeeDetails(employee.id)" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn-icon" (click)="editEmployee(employee.id)" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon" (click)="assignRole(employee)" title="Assign Role/Department">
+                  <i class="fas fa-user-tag"></i>
+                </button>
+                <button class="btn-icon danger" (click)="terminateEmployee(employee)" 
+                        *ngIf="employee.status === 'active'" title="Terminate">
+                  <i class="fas fa-user-slash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="filteredEmployees.length > 0">
+      <button [disabled]="currentPage === 1" (click)="prevPage()">
+        <i class="fas fa-chevron-left"></i> Previous
+      </button>
+      <span>Page {{currentPage}} of {{totalPages}}</span>
+      <button [disabled]="currentPage === totalPages" (click)="nextPage()">
+        Next <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  
+    <!-- No Results Message -->
+    <div class="no-results" *ngIf="filteredEmployees.length === 0">
+      <i class="fas fa-user-times"></i>
+      <p>No employees found matching your criteria</p>
+    </div>
+  </div>

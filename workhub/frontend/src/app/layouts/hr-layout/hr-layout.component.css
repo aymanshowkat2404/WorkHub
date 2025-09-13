@@ -1,0 +1,28 @@
+.main-layout {
+    display: flex;
+  }
+  
+  .hrsidebar {
+    
+    width: 250px;
+    height: 100vh;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px); /* Prevent squeezing */
+    padding: 1rem;
+    transition: margin-left 0.3s ease;
+  }
+  .app-wrapper {
+    display: flex;
+  }
+  
+  
+  
+  /* Sidebar collapsed state */
+  .hrsidebar.collapsed ~ .main-content {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+  

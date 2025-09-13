@@ -1,0 +1,118 @@
+<div class="support-container">
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="header">
+        <h1>HR Support</h1>
+        <div class="header-actions">
+          <button class="notification-btn" (click)="toggleNotifications()">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+          </button>
+          <button class="mobile-menu-btn" id="mobileMenuBtn" (click)="toggleSidebar()">
+            <i class="fas" [class.fa-bars]="!isSidebarActive" [class.fa-times]="isSidebarActive"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Support Tabs -->
+      <div class="support-tabs">
+        <div class="support-tab" [class.active]="activeTab === 'raise-ticket'" (click)="changeTab('raise-ticket')">Raise a Ticket</div>
+        <div class="support-tab" [class.active]="activeTab === 'faq'" (click)="changeTab('faq')">FAQ</div>
+        <div class="support-tab" [class.active]="activeTab === 'hr-contacts'" (click)="changeTab('hr-contacts')">HR Contacts</div>
+      </div>
+      
+      <!-- Raise a Ticket Tab -->
+      <div class="tab-content" [class.active]="activeTab === 'raise-ticket'">
+        <div class="ticket-form">
+          <h3 style="margin-bottom: 1.5rem;">Submit a New Query</h3>
+          
+          <div class="form-group">
+            <label for="ticket-subject">Subject</label>
+            <input type="text" id="ticket-subject" class="form-control" [(ngModel)]="ticket.subject" placeholder="Briefly describe your issue">
+          </div>
+          
+          <div class="form-group">
+            <label for="ticket-category">Category</label>
+            <select id="ticket-category" class="form-control" [(ngModel)]="ticket.category">
+              <option value="">Select a category</option>
+              <option value="payroll">Payroll & Compensation</option>
+              <option value="leave">Leave & Attendance</option>
+              <option value="benefits">Benefits</option>
+              <option value="policy">HR Policies</option>
+              <option value="technical">Technical Issue</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="ticket-priority">Priority</label>
+            <select id="ticket-priority" class="form-control" [(ngModel)]="ticket.priority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="ticket-description">Description</label>
+            <textarea id="ticket-description" class="form-control" [(ngModel)]="ticket.description" placeholder="Provide detailed information about your issue"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="ticket-attachment">Attachment (Optional)</label>
+            <input type="file" id="ticket-attachment" class="form-control" (change)="onFileSelected($event)">
+          </div>
+          
+          <div class="form-actions">
+            <button class="btn btn-secondary" (click)="cancelTicket()">Cancel</button>
+            <button class="btn btn-primary" (click)="submitTicket()">Submit Ticket</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- FAQ Tab -->
+      <div class="tab-content" [class.active]="activeTab === 'faq'">
+        <div class="faq-item" *ngFor="let faq of faqs" [class.active]="faq.active" (click)="toggleFaq(faq)">
+          <div class="faq-question">
+            <span>{{ faq.question }}</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- HR Contacts Tab -->
+      <div class="tab-content" [class.active]="activeTab === 'hr-contacts'">
+        <div class="hr-contacts">
+          <div class="hr-card" *ngFor="let contact of hrContacts">
+            <div class="hr-profile">
+              <div class="hr-avatar">
+                <img [src]="contact.avatar" [alt]="contact.name">
+              </div>
+              <div class="hr-info">
+                <h4>{{ contact.name }}</h4>
+                <p>{{ contact.position }}</p>
+              </div>
+            </div>
+            <div class="hr-details">
+              <div class="hr-detail">
+                <i class="fas fa-envelope"></i>
+                <span>{{ contact.email }}</span>
+              </div>
+              <div class="hr-detail">
+                <i class="fas fa-phone"></i>
+                <span>{{ contact.phone }}</span>
+              </div>
+              <div class="hr-detail">
+                <i class="fas fa-user-tag"></i>
+                <span>{{ contact.responsibilities }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

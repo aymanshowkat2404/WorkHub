@@ -1,0 +1,75 @@
+<div class="main-content">
+  <div class="header">
+    <h1>Payroll Management</h1>
+  </div>
+    <div class="payroll-cards">
+      <!-- Process Salary Card -->
+      <div class="payroll-card" (click)="navigateTo('process-salary')">
+        <div class="card-icon">
+          <i class="fas fa-calculator"></i>
+        </div>
+        <h3>Process Salary</h3>
+        <p>Calculate and process monthly salaries for employees</p>
+      </div>
+  
+      <!-- Generate Payslips Card -->
+      <div class="payroll-card" (click)="navigateTo('generate-payslips')">
+        <div class="card-icon">
+          <i class="fas fa-file-invoice-dollar"></i>
+        </div>
+        <h3>Generate Payslips</h3>
+        <p>Create and distribute employee payslips</p>
+      </div>
+  
+      <!-- View Salary Structure Card -->
+      <div class="payroll-card" (click)="navigateTo('salary-structure')">
+        <div class="card-icon">
+          <i class="fas fa-search-dollar"></i>
+        </div>
+        <h3>View Salary Structure</h3>
+        <p>Access and review employee compensation details</p>
+      </div>
+  
+      <!-- Manage Bonuses Card -->
+      <div class="payroll-card" (click)="navigateTo('manage-bonuses')">
+        <div class="card-icon">
+          <i class="fas fa-gift"></i>
+        </div>
+        <h3>Manage Incentives</h3>
+        <p>Add bonuses, deductions, and other adjustments</p>
+      </div>
+  
+      <!-- Download Reports Card -->
+      <div class="payroll-card" (click)="navigateTo('download-reports')">
+        <div class="card-icon">
+          <i class="fas fa-file-download"></i>
+        </div>
+        <h3>Download Reports</h3>
+        <p>Generate and export payroll reports</p>
+      </div>
+    </div>
+  
+    <div class="payroll-stats">
+      <div class="stat-card">
+        <h4>Employees</h4>
+        <p class="stat-value">{{ stats.totalEmployees }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>This Month's Payroll</h4>
+        <p class="stat-value">{{ stats.monthlyPayroll | currency }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Pending Approvals</h4>
+        <p class="stat-value">{{ stats.pendingApprovals }}</p>
+      </div>
+    </div>
+  
+    <div class="payroll-actions">
+      <button class="action-button primary" (click)="runPayroll()">
+        <i class="fas fa-play-circle"></i> Run Payroll
+      </button>
+      <button class="action-button secondary" (click)="generateReports()">
+        <i class="fas fa-file-export"></i> Export Reports
+      </button>
+    </div>
+  </div>

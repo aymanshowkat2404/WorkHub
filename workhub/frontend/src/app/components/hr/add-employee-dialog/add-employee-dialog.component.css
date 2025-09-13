@@ -1,0 +1,218 @@
+/* ==== Dialog Title ==== */
+::ng-deep .mat-mdc-dialog-title {
+  color: #2980b9 !important;
+  font-size: 1.7rem !important;
+  font-weight: 500 !important;
+  text-align: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+/* ==== Tab Group Styling ==== */
+::ng-deep .mat-mdc-tab-group {
+  margin-top: 1.5rem;
+}
+
+/* Force tab text colors */
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+  color: #888 !important; /* Inactive tab label */
+  font-weight: 500 !important;
+  font-size: 1rem;
+}
+
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #2980b9 !important; /* Active tab label */
+  font-weight: 600 !important;
+}
+
+/* Fix the underline indicator */
+::ng-deep .mat-mdc-tab-indicator .mat-mdc-tab-indicator-content {
+  border-color: #2980b9 !important;
+}
+
+::ng-deep .mat-mdc-tab-group .mat-mdc-tab-header .mat-mdc-tab-indicator {
+  background-color: transparent !important;
+  height: 3px;
+}
+
+::ng-deep .mat-mdc-tab-indicator .mat-mdc-tab-indicator-content--underline {
+  border-bottom: 3px solid #2980b9 !important;
+  border-radius: 2px;
+}
+
+/* ==== Form Styling ==== */
+.employee-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+  background-color: rgba(248, 249, 250, 0.85);
+  border-radius: 8px;
+}
+
+mat-form-field:hover {
+  background-color: rgba(248, 249, 250, 1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ==== Bulk Upload Styling ==== */
+.bulk-upload-container {
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border: 2px dashed rgba(41, 128, 185, 0.3);
+  border-radius: 12px;
+  background-color: rgba(241, 248, 253, 0.4);
+  transition: all 0.3s ease;
+}
+
+.bulk-upload-container:hover {
+  border-color: rgba(41, 128, 185, 0.6);
+  background-color: rgba(241, 248, 253, 0.8);
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  background: white;
+  border: 1px solid rgba(41, 128, 185, 0.4);
+  border-radius: 8px;
+  cursor: pointer;
+  color: #2980b9;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.upload-btn:hover {
+  background-color: rgba(41, 128, 185, 0.05);
+}
+
+.file-preview {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: #f3f7fb;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  color: #2c3e50;
+}
+
+/* ==== Buttons ==== */
+::ng-deep .mat-mdc-dialog-actions {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+::ng-deep .mat-mdc-dialog-actions button {
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+}
+
+::ng-deep .mat-mdc-dialog-actions button[color="primary"] {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+  transition: all 0.3s ease;
+}
+
+::ng-deep .mat-mdc-dialog-actions button[color="primary"]:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #1f6399 100%) !important;
+  box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ==== Dropdown Styles ==== */
+::ng-deep .mdc-menu {
+  background-color: rgb(224, 220, 220) !important;
+  color: #2c3e50 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+::ng-deep .mat-mdc-option {
+  background-color: rgb(224, 220, 220) !important;
+  color: #2c3e50 !important;
+  padding: 12px 16px;
+  transition: background 0.3s ease;
+}
+
+::ng-deep .mat-mdc-option:hover:not(.mat-mdc-option-disabled),
+::ng-deep .mat-mdc-option:focus:not(.mat-mdc-option-disabled) {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-option.mat-mdc-option-selected:not(.mat-mdc-option-disabled) {
+  background-color: #5da5d5 !important;
+  font-weight: 500;
+}
+/* 🌙 Calendar background color */
+::ng-deep .mat-calendar {
+  background-color: rgb(206, 203, 203)  !important; /* light blue background */
+  border-radius: 12px;
+  padding: 8px;
+}
+
+/* Header row (weekdays: S M T W T F S) */
+::ng-deep .mat-calendar-table-header th {
+  color: #2980b9 !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem;
+}
+
+/* Calendar month view - day cells */
+::ng-deep .mat-calendar-body-cell {
+  background-color: transparent !important;
+  color: black !important;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect on day */
+::ng-deep .mat-calendar-body-cell:hover:not(.mat-calendar-body-disabled) {
+  background-color: rgba(41, 128, 185, 0.1) !important;
+}
+
+/* Selected day */
+::ng-deep .mat-calendar-body-selected {
+  background-color: #2980b9 !important;
+  color: white !important;
+  border-radius: 8px !important;
+}
+
+/* Today's date */
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border: 1px solid #2980b9 !important;
+}
+
+/* Month/Year toggle header background */
+::ng-deep .mat-mdc-calendar-header {
+  background: #e3f2fd !important;
+  color: #2980b9 !important;
+  font-weight: 600;
+  border-radius: 8px 8px 0 0;
+}
+
+
+/* ==== Responsive ==== */
+@media (max-width: 768px) {
+  .employee-form {
+    grid-template-columns: 1fr;
+  }
+
+  .bulk-upload-container {
+    padding: 1rem;
+  }
+}

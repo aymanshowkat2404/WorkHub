@@ -1,0 +1,223 @@
+<div class="main-content">
+    <div class="header">
+        <h1>Payroll & Salary</h1>
+        <div class="header-actions">
+            <button class="notification-btn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </button>
+            <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+                <i class="fas" [class.fa-bars]="!mobileMenuOpen" [class.fa-times]="mobileMenuOpen"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Payroll Summary -->
+    <div class="payroll-summary">
+        <div class="card summary-card">
+            <div class="summary-icon">
+                <i class="fas fa-wallet"></i>
+            </div>
+            <div class="summary-number">{{ payrollSummary.currentMonthSalary | currency }}</div>
+            <div class="summary-label">Current Month Salary</div>
+        </div>
+        <div class="card summary-card">
+            <div class="summary-icon">
+                <i class="fas fa-piggy-bank"></i>
+            </div>
+            <div class="summary-number">{{ payrollSummary.ytdEarnings | currency }}</div>
+            <div class="summary-label">YTD Earnings</div>
+        </div>
+        <div class="card summary-card">
+            <div class="summary-icon">
+                <i class="fas fa-receipt"></i>
+            </div>
+            <div class="summary-number">{{ payrollSummary.ytdTaxPaid | currency }}</div>
+            <div class="summary-label">YTD Tax Paid</div>
+        </div>
+        <div class="card summary-card">
+            <div class="summary-icon">
+                <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <div class="summary-number">{{ payrollSummary.ytdReimbursements | currency }}</div>
+            <div class="summary-label">YTD Reimbursements</div>
+        </div>
+    </div>
+
+    <!-- Payslip Section -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">View Payslips</h2>
+        </div>
+        <div class="payslip-actions">
+            <select class="payslip-select" [(ngModel)]="selectedMonth">
+                <option value="">Select Month</option>
+                <option *ngFor="let month of availableMonths" [value]="month.value">{{ month.label }}</option>
+            </select>
+            <button class="btn btn-primary" (click)="viewPayslip()">
+                <i class="fas fa-eye"></i> View Payslip
+            </button>
+            <button class="btn btn-secondary" (click)="downloadPayslip()">
+                <i class="fas fa-download"></i> Download PDF
+            </button>
+        </div>
+        <div class="payslip-preview">
+            <div *ngIf="!selectedMonthForPreview" style="text-align: center; padding: 2rem; color: #666;">
+                <i class="fas fa-file-invoice-dollar" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <p>Select a month to view your payslip</p>
+            </div>
+            
+            <div *ngIf="selectedMonthForPreview" style="padding: 2rem; background: white; border-radius: 8px;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary-color);">WorkHub Payslip</h3>
+                    <p>{{ getMonthLabel(selectedMonthForPreview) }}</p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div>
+                        <h4 style="margin-bottom: 1rem; color: var(--dark-color);">Employee Details</h4>
+                        <p><strong>Name:</strong> {{ employeeDetails.name }}</p>
+                        <p><strong>Employee ID:</strong> {{ employeeDetails.employeeId }}</p>
+                        <p><strong>Department:</strong> {{ employeeDetails.department }}</p>
+                        <p><strong>Position:</strong> {{ employeeDetails.position }}</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 1rem; color: var(--dark-color);">Payment Details</h4>
+                        <p><strong>Bank:</strong> {{ employeeDetails.bank }}</p>
+                        <p><strong>Account No:</strong> {{ employeeDetails.accountNumber }}</p>
+                        <p><strong>Payment Date:</strong> {{ getPaymentDate(selectedMonthForPreview) | date:'longDate' }}</p>
+                        <p><strong>Pay Period:</strong> {{ getPayPeriod(selectedMonthForPreview) }}</p>
+                    </div>
+                </div>
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark-color);">Earnings & Deductions</h4>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #eee;">
+                                <th style="text-align: left; padding: 0.5rem;">Description</th>
+                                <th style="text-align: right; padding: 0.5rem;">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of payslipItems" style="border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.5rem;">{{ item.description }}</td>
+                                <td style="text-align: right; padding: 0.5rem;" 
+                                    [class.amount-negative]="item.type === 'deduction'">
+                                    {{ item.type === 'deduction' ? '-' : '' }}{{ item.amount | currency }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem; font-weight: bold;">Net Pay</td>
+                                <td style="text-align: right; padding: 0.5rem; font-weight: bold;">{{ calculateNetPay() | currency }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="text-align: center; color: #666; font-size: 0.9rem;">
+                    <p>This is an auto-generated payslip. Please contact HR for any discrepancies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Salary Breakdown -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Salary Breakdown</h2>
+            <select class="filter-control" [(ngModel)]="salaryPeriod" (change)="updateSalaryBreakdown()">
+                <option value="current">Current Month</option>
+                <option value="last">Last Month</option>
+                <option value="quarter">This Quarter</option>
+            </select>
+        </div>
+        <table class="salary-table">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of salaryBreakdown">
+                    <td>{{ item.component }}</td>
+                    <td>{{ item.type }}</td>
+                    <td [class.amount-positive]="item.type === 'Earnings'" 
+                        [class.amount-negative]="item.type === 'Deductions'">
+                        {{ item.type === 'Deductions' ? '-' : '+' }} {{ item.amount | currency }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Net Salary</strong></td>
+                    <td></td>
+                    <td><strong>{{ calculateNetSalary() | currency }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Tax Deductions -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Tax Deductions</h2>
+            <select class="filter-control" [(ngModel)]="taxYear" (change)="updateTaxDeductions()">
+                <option *ngFor="let year of availableTaxYears" [value]="year">{{ year }}</option>
+            </select>
+        </div>
+        <div class="tax-grid">
+            <div class="tax-card">
+                <h4>Federal Taxes</h4>
+                <div class="tax-item" *ngFor="let tax of federalTaxes">
+                    <span>{{ tax.name }}</span>
+                    <span class="amount-negative">- {{ tax.amount | currency }}</span>
+                </div>
+            </div>
+            <div class="tax-card">
+                <h4>State Taxes</h4>
+                <div class="tax-item" *ngFor="let tax of stateTaxes">
+                    <span>{{ tax.name }}</span>
+                    <span class="amount-negative">- {{ tax.amount | currency }}</span>
+                </div>
+            </div>
+            <div class="tax-card">
+                <h4>Year-to-Date Summary</h4>
+                <div class="tax-item">
+                    <span>Total Tax Paid</span>
+                    <span class="amount-negative">- {{ ytdTaxSummary.totalTaxPaid | currency }}</span>
+                </div>
+                <div class="tax-item">
+                    <span>Taxable Income</span>
+                    <span>{{ ytdTaxSummary.taxableIncome | currency }}</span>
+                </div>
+                <div class="tax-item">
+                    <span>Estimated Refund</span>
+                    <span class="amount-positive">+ {{ ytdTaxSummary.estimatedRefund | currency }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reimbursements -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Reimbursements</h2>
+            <button class="btn btn-primary btn-sm" (click)="requestReimbursement()">
+                <i class="fas fa-plus"></i> Request Reimbursement
+            </button>
+        </div>
+        <div class="reimbursement-list">
+            <div class="reimbursement-item" *ngFor="let reimbursement of reimbursements">
+                <div class="reimbursement-info">
+                    <div class="reimbursement-title">{{ reimbursement.title }}</div>
+                    <div class="reimbursement-date">Submitted: {{ reimbursement.submittedDate | date:'longDate' }}</div>
+                </div>
+                <div class="amount-positive">{{ reimbursement.amount | currency }}</div>
+                <div class="reimbursement-status" 
+                     [class.status-approved]="reimbursement.status === 'approved'"
+                     [class.status-pending]="reimbursement.status === 'pending'"
+                     [class.status-rejected]="reimbursement.status === 'rejected'">
+                    {{ reimbursement.status | titlecase }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

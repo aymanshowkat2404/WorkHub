@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>View Payslip</h2>
+<mat-dialog-content>
+  <form [formGroup]="payslipForm">
+    <div class="selection-row">
+      <mat-form-field appearance="fill">
+        <mat-label>Month</mat-label>
+        <mat-select formControlName="month">
+          <mat-option *ngFor="let month of months; let i = index" [value]="i + 1">
+            {{ month }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Year</mat-label>
+        <mat-select formControlName="year">
+          <mat-option *ngFor="let year of years" [value]="year">
+            {{ year }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="loadPayslip()">
+        Load Payslip
+      </button>
+    </div>
+
+    <input type="hidden" formControlName="employeeId">
+  </form>
+
+  <div *ngIf="selectedPayslip" class="payslip-details">
+    <h3>Payslip for {{ selectedPayslip.month }} {{ selectedPayslip.year }}</h3>
+    
+    <div class="payslip-section">
+      <h4>Earnings</h4>
+      <div class="payslip-row">
+        <span>Basic Salary</span>
+        <span>${{ selectedPayslip.basicSalary | number:'1.2-2' }}</span>
+      </div>
+      <div class="payslip-row">
+        <span>Allowances</span>
+        <span>${{ selectedPayslip.allowances | number:'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <div class="payslip-section">
+      <h4>Deductions</h4>
+      <div class="payslip-row">
+        <span>Taxes & Deductions</span>
+        <span>-${{ selectedPayslip.deductions | number:'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <div class="payslip-total">
+      <div class="payslip-row">
+        <span><strong>Net Salary</strong></span>
+        <span><strong>${{ selectedPayslip.netSalary | number:'1.2-2' }}</strong></span>
+      </div>
+    </div>
+
+    <div class="payslip-actions">
+      <button mat-raised-button color="primary" (click)="downloadPayslip()">
+        <mat-icon>download</mat-icon> Download
+      </button>
+      <button mat-raised-button color="accent" (click)="emailPayslip()">
+        <mat-icon>email</mat-icon> Email
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onClose()">Close</button>
+</mat-dialog-actions>

@@ -1,0 +1,207 @@
+<!-- Header (same as home) -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <i class="fas fa-users"></i>
+            <span>WorkHub</span>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav id="mainNav">
+            <ul>
+                <li><a routerLink="/home">Home</a></li>
+                <li><a routerLink="/features">Features</a></li>
+                <li><a routerLink="/pricing">Pricing</a></li>
+                <li><a routerLink="/about" class="active">About</a></li>
+                <li><a routerLink="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="auth-buttons">
+            <div class="dropdown">
+                <a routerLink="" class="btn btn-login">Login/Sign Up</a>
+                <div class="dropdown-content">
+                    <a routerLink="/login" [queryParams]="{role: 'hr'}"><i class="fas fa-user-tie"></i> HR Manager</a>
+                    <a routerLink="/elogin" [queryParams]="{role: 'employee'}"><i class="fas fa-user"></i> Employee</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- About Hero Section -->
+<section class="about-hero">
+    <div class="container">
+        <div class="about-hero-content">
+            <h1>About WorkHub</h1>
+            <p>Empowering businesses with innovative workforce management solutions since 2025</p>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="about-mission">
+    <div class="container">
+        <div class="mission-grid">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>At WorkHub, we believe that effective workforce management should be accessible to businesses of all sizes. Our mission is to simplify HR processes through intuitive technology that empowers teams to focus on what matters most - their people.</p>
+                <p>We're committed to creating solutions that are not only powerful but also easy to use, ensuring that our clients can maximize their investment in human capital.</p>
+            </div>
+            <div class="mission-image">
+                <div class="image-placeholder"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="about-values">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Core Values</h2>
+            <p>These principles guide everything we do at WorkHub</p>
+        </div>
+        
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Innovation</h3>
+                <p>We continuously evolve our platform to incorporate the latest technologies and best practices in HR management.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Integrity</h3>
+                <p>We build trust through transparency, ethical practices, and respect for our clients and their data.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h3>Customer Success</h3>
+                <p>Our success is measured by our clients' achievements. We're committed to their growth and satisfaction.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Security</h3>
+                <p>We prioritize the protection of sensitive employee data with enterprise-grade security measures.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="about-team">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Leadership Team</h2>
+            <p>Experienced professionals dedicated to transforming workforce management</p>
+        </div>
+        
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="David Chen">
+                </div>
+                <h3>David Chen</h3>
+                <p class="position">CEO & Founder</p>
+                <p class="bio">Former HR executive with 15+ years of experience in enterprise workforce management.</p>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson">
+                </div>
+                <h3>Sarah Johnson</h3>
+                <p class="position">Chief Product Officer</p>
+                <p class="bio">Product visionary with expertise in creating user-centric HR technology solutions.</p>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Michael Rodriguez">
+                </div>
+                <h3>Michael Rodriguez</h3>
+                <p class="position">CTO</p>
+                <p class="bio">Technology expert specializing in scalable cloud architecture and data security.</p>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Lisa Wang">
+                </div>
+                <h3>Lisa Wang</h3>
+                <p class="position">Head of Customer Success</p>
+                <p class="bio">Dedicated to ensuring client satisfaction and maximizing the value of WorkHub.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Footer (same as home) -->
+<footer>
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <i class="fas fa-users"></i>
+                    <span>WorkHub</span>
+                </div>
+                <p>Empowering businesses with modern workforce management solutions since 2025.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a routerLink="/home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a routerLink="/features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                    <li><a routerLink="/pricing"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                    <li><a routerLink="/about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a routerLink="/contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Features</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Employee Management</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Department Structure</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Reporting</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Attendance Tracking</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Role-Based Access</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Suite 400, New York, NY 10001</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info&#64;workhub.com</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 WorkHub. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </div>
+</footer>

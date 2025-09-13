@@ -1,0 +1,112 @@
+<div class="custom-employee-dialog"></div>
+<h2 mat-dialog-title>Add New Employee</h2>
+
+<mat-dialog-content>
+  <mat-tab-group [(selectedIndex)]="activeTab">
+    <!-- Single Employee Tab -->
+    <mat-tab label="Single Entry">
+      <form [formGroup]="employeeForm" class="employee-form">
+        <mat-form-field appearance="fill">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required />
+          <mat-error *ngIf="employeeForm.get('email')?.hasError('email')">
+            Please enter a valid email
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="department" required>
+            <mat-option *ngFor="let dept of departments" [value]="dept">{{ dept }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role" required>
+            <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Position</mat-label>
+          <input matInput formControlName="position" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Salary</mat-label>
+          <input matInput formControlName="salary" type="number" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Hire Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="hireDate" required />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+    </mat-tab>
+
+    <!-- Bulk Upload Tab -->
+    <mat-tab label="Bulk Upload">
+      <div class="bulk-upload-container">
+        <div class="upload-instructions">
+          <h3>Bulk Upload Instructions</h3>
+          <p>Upload an Excel or CSV file with employee data. The file should contain these columns:</p>
+          <ul>
+            <li>First Name</li>
+            <li>Last Name</li>
+            <li>Email</li>
+            <li>Department</li>
+            <li>Role</li>
+            <li>Position</li>
+            <li>Salary</li>
+            <li>Hire Date (YYYY-MM-DD)</li>
+          </ul>
+         
+        </div>
+
+        <div class="file-upload-wrapper">
+          <input type="file" id="fileUpload" (change)="onFileSelected($event)" accept=".csv,.xlsx,.xls" hidden />
+          <label for="fileUpload" class="upload-btn">
+            <mat-icon>cloud_upload</mat-icon>
+            <span>{{ selectedFile ? selectedFile.name : 'Choose File' }}</span>
+          </label>
+        </div>
+
+        <div *ngIf="selectedFile" class="file-preview">
+          <mat-icon>description</mat-icon>
+          <span>{{ selectedFile.name }}</span>
+          <span>({{ (selectedFile.size / 1024).toFixed(2) }} KB)</span>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+
+  <ng-container *ngIf="activeTab === 0">
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!employeeForm.valid">
+      Add Employee
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="activeTab === 1">
+    <button mat-raised-button color="primary" (click)="onBulkUpload()" [disabled]="!selectedFile || uploadInProgress">
+      <span *ngIf="!uploadInProgress">Upload Employees</span>
+      <span *ngIf="uploadInProgress">Processing...</span>
+    </button>
+  </ng-container>
+</mat-dialog-actions>

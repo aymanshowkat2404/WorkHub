@@ -1,0 +1,174 @@
+<!-- Header -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <i class="fas fa-users"></i>
+            <span>WorkHub</span>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav id="mainNav">
+            <ul>
+                <li><a routerLink="/home">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="auth-buttons">
+            <a routerLink="/login" class="btn btn-login" [class.active]="activeForm === 'login'" (click)="toggleForm('login')">Login</a>
+            <a routerLink="/login" class="btn btn-signup" [class.active]="activeForm === 'register'" (click)="toggleForm('register')">Sign Up</a>
+        </div>
+    </div>
+</header>
+
+<!-- Auth Container -->
+<section class="auth-container">
+    <div class="auth-box floating">
+        <div class="auth-header">
+            <div class="auth-logo">
+                <i class="fas fa-users"></i>
+            </div>
+            <h2>{{ activeForm === 'login' ? 'Welcome Back' : 'Create Your Account' }}</h2>
+            <p>{{ activeForm === 'login' ? 'Login to access your WorkHub account' : 'Join WorkHub to streamline your workforce management' }}</p>
+        </div>
+        
+        <!-- Form Toggle -->
+        <div class="form-toggle">
+            <button class="form-toggle-btn" [class.active]="activeForm === 'login'" (click)="toggleForm('login')">Login</button>
+            <button class="form-toggle-btn" [class.active]="activeForm === 'register'" (click)="toggleForm('register')">Sign Up</button>
+        </div>
+        
+        <!-- Login Form -->
+        <form [formGroup]="loginForm" class="form-container" [class.active]="activeForm === 'login'" (ngSubmit)="onLoginSubmit()">
+            <div class="form-group">
+                <label for="loginEmail">Email Address</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" formControlName="email" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" formControlName="password" required>
+                </div>
+            </div>
+            
+            <div class="form-group" style="text-align: right;">
+                <a routerLink="/forgot-password" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            
+            <div class="divider">or login with</div>
+            
+            <div class="social-login">
+                <a href="#" class="social-btn google">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="#" class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-btn linkedin">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            
+            <div class="auth-footer">
+                Don't have an account? <a href="#" (click)="toggleForm('register'); $event.preventDefault()">Sign up here</a>
+            </div>
+        </form>
+        
+        <!-- Register Form -->
+        <form [formGroup]="registerForm" class="form-container" [class.active]="activeForm === 'register'" (ngSubmit)="onRegisterSubmit()">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="firstName" class="form-control" placeholder="Enter your first name" formControlName="firstName" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="lastName" class="form-control" placeholder="Enter your last name" formControlName="lastName" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" formControlName="email" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" class="form-control" placeholder="Create a password" formControlName="password" required>
+                </div>
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="passwordStrength"></div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" formControlName="confirmPassword" required>
+                </div>
+            </div>
+            
+            <div class="terms">
+                <input type="checkbox" id="agreeTerms" formControlName="agreeTerms" required>
+                <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+            
+            <div class="divider">or sign up with</div>
+            
+            <div class="social-login">
+                <a href="#" class="social-btn google">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="#" class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-btn linkedin">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            
+            <div class="auth-footer">
+                Already have an account? <a href="#" (click)="toggleForm('login'); $event.preventDefault()">Sign in here</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-bottom">
+            <p>&copy; 2025 WorkHub. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </div>
+</footer>

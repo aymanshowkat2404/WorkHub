@@ -1,0 +1,153 @@
+<div class="main-content">
+    <div class="header">
+      <h1>Edit Profile</h1>
+      <div class="header-actions">
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </button>
+        <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+          <i class="fas" [class.fa-bars]="!mobileMenuOpen" [class.fa-times]="mobileMenuOpen"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="profile-edit-section">
+      <div class="profile-card">
+        <div class="profile-avatar-edit">
+          <img [src]="profile.avatar" [alt]="profile.name">
+          <div class="avatar-edit-overlay">
+            <i class="fas fa-camera"></i>
+          </div>
+        </div>
+        <h2 class="profile-name">{{ profile.name }}</h2>
+        <p class="profile-title">{{ profile.title }}</p>
+        
+      </div>
+      
+      <div class="edit-form">
+        <form (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" id="firstName" class="form-control" [(ngModel)]="profile.firstName" name="firstName">
+            </div>
+            <div class="form-group">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" id="lastName" class="form-control" [(ngModel)]="profile.lastName" name="lastName">
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="jobTitle" class="form-label">Job Title</label>
+              <input type="text" id="jobTitle" class="form-control" [(ngModel)]="profile.title" name="title">
+            </div>
+            <div class="form-group">
+              <label for="employeeId" class="form-label">Employee ID</label>
+              <input type="text" id="employeeId" class="form-control" [(ngModel)]="profile.employeeId" name="employeeId" readonly>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="department" class="form-label">Department</label>
+              <select id="department" class="form-select" [(ngModel)]="profile.department" name="department">
+                <option *ngFor="let dept of departments" [value]="dept.value">{{ dept.label }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="manager" class="form-label">Manager</label>
+              <select id="manager" class="form-select" [(ngModel)]="profile.manager" name="manager">
+                <option *ngFor="let mgr of managers" [value]="mgr.value">{{ mgr.label }}</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" class="form-control" [(ngModel)]="profile.email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone</label>
+              <input type="tel" id="phone" class="form-control" [(ngModel)]="profile.phone" name="phone">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="joinDate" class="form-label">Join Date</label>
+            <input type="date" id="joinDate" class="form-control" [(ngModel)]="profile.joinDate" name="joinDate">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">About</label>
+            <textarea id="about" class="form-control" [(ngModel)]="profile.about" name="about"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Skills</label>
+            <div class="skills-input-container" id="skillsContainer">
+              <div class="skill-tag" *ngFor="let skill of profile.skills">
+                {{ skill.name }} <span class="skill-tag-remove" (click)="removeSkill(skill)">&times;</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <input type="text" id="newSkill" class="form-control skill-input" placeholder="Add new skill" [(ngModel)]="newSkill" name="newSkill">
+              <button type="button" class="btn btn-add" (click)="addSkill()">
+                <i class="fas fa-plus"></i> Add Skill
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Experience</label>
+            <div id="experienceContainer">
+              <div class="experience-item-edit" *ngFor="let exp of profile.experience; let i = index">
+                <span class="experience-item-remove" (click)="removeExperience(i)">&times;</span>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label [for]="'exp'+i+'Title'" class="form-label">Job Title</label>
+                    <input type="text" [id]="'exp'+i+'Title'" class="form-control" [(ngModel)]="exp.title" [name]="'exp'+i+'Title'">
+                  </div>
+                  <div class="form-group">
+                    <label [for]="'exp'+i+'Company'" class="form-label">Company</label>
+                    <input type="text" [id]="'exp'+i+'Company'" class="form-control" [(ngModel)]="exp.company" [name]="'exp'+i+'Company'">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label [for]="'exp'+i+'Start'" class="form-label">Start Date</label>
+                    <input type="date" [id]="'exp'+i+'Start'" class="form-control" [(ngModel)]="exp.startDate" [name]="'exp'+i+'Start'">
+                  </div>
+                  <div class="form-group">
+                    <label [for]="'exp'+i+'End'" class="form-label">End Date</label>
+                    <input type="date" [id]="'exp'+i+'End'" class="form-control" [(ngModel)]="exp.endDate" [name]="'exp'+i+'End'">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label [for]="'exp'+i+'Description'" class="form-label">Description</label>
+                  <textarea [id]="'exp'+i+'Description'" class="form-control" [(ngModel)]="exp.description" [name]="'exp'+i+'Description'"></textarea>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-add" (click)="addExperience()">
+              <i class="fas fa-plus"></i> Add Experience
+            </button>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn btn-danger" (click)="deleteProfile()">
+              <i class="fas fa-trash"></i> Delete Profile
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Save Changes
+            </button>
+            <button class="btn btn-secondary" (click)="discardChanges()">
+              <i class="fas fa-undo"></i> Discard
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

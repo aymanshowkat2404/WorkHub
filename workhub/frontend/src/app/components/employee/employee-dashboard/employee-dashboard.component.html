@@ -1,0 +1,210 @@
+<div class="main-content">
+    <div class="header">
+        <h1>Dashboard Overview</h1>
+        <div class="header-actions">
+            <button class="notification-btn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </button>
+            <button class="mobile-menu-btn" (click)="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+        <div class="welcome-content">
+            <div class="welcome-message">
+                <h2>Welcome back, {{ currentUser?.username }}</h2>
+                <p>Here's what's happening with your work today</p>
+            </div>
+            
+            <div class="profile-snapshot" *ngIf="employeeData">
+                <div class="profile-meta">
+                  <div class="profile-meta-item">
+                    <i class="fas fa-id-badge"></i>
+                    <span>ID: {{ currentUser?.employeeId }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              
+            <div class="datetime-display">
+                <i class="fas fa-clock"></i>
+                <span>{{ currentDateTime }}</span>
+
+            </div>
+        </div>
+    </div>
+    
+    <!-- Dashboard Widgets -->
+    <div class="dashboard-grid">
+        <!-- Notifications & Alerts Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Notifications & Alerts</h2>
+                <div class="icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+            </div>
+            <div class="alert-item">
+                <div class="alert-icon alert-success">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-title">Leave Approved</div>
+                    <div class="alert-message">Your sick leave request for June 15-17 has been approved</div>
+                    <div class="alert-time">10 minutes ago</div>
+                </div>
+            </div>
+            <div class="alert-item">
+                <div class="alert-icon alert-info">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-title">New Announcement</div>
+                    <div class="alert-message">Office will be closed for renovation from June 20-25</div>
+                    <div class="alert-time">2 hours ago</div>
+                </div>
+            </div>
+            <div class="alert-item">
+                <div class="alert-icon alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-title">Task Deadline Approaching</div>
+                    <div class="alert-message">"Complete project documentation" is due tomorrow</div>
+                    <div class="alert-time">Yesterday</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Attendance Status Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Today's Attendance</h2>
+                <div class="icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                <span class="status-indicator status-present"></span>
+                <span>Currently: <strong>Present</strong></span>
+            </div>
+            <div style="margin-bottom: 0.5rem;">
+                <span style="color: #666;">Check-in:</span>
+                <strong>09:05 AM</strong>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <span style="color: #666;">Working hours:</span>
+                <strong>8.5/9 hours completed</strong>
+            </div>
+            <div class="progress-container">
+                <div class="progress-text">
+                    <span>Monthly Attendance</span>
+                    <span>22/24 days</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 92%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Links Card -->
+<div class="card">
+    <div class="card-header">
+        <h2>Quick Actions</h2>
+        <div class="icon">
+            <i class="fas fa-bolt"></i>
+        </div>
+    </div>
+    <div class="quick-actions-grid">
+        <button (click)="openAttendanceDialog()" class="quick-action-btn primary">
+            <i class="fas fa-calendar-check"></i>
+            <span>Mark Attendance</span>
+        </button>
+        
+        <button (click)="openLeaveRequestDialog()" class="quick-action-btn success">
+            <i class="fas fa-calendar-minus"></i>
+            <span>Apply Leave</span>
+        </button>
+        
+        <button (click)="navigateToTasks()" class="quick-action-btn warning">
+            <i class="fas fa-tasks"></i>
+            <span>View Tasks</span>
+        </button>
+        
+        <button (click)="openPayslipDialog()" class="quick-action-btn purple">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>View Payslip</span>
+        </button>
+    </div>
+</div>
+        
+        <!-- Upcoming Tasks Card -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Upcoming Tasks</h2>
+                <div class="icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Complete project documentation</span>
+                    <span style="color: var(--danger-color); font-weight: 500;">Due tomorrow</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 65%; background: var(--danger-color);"></div>
+                </div>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Code review for new feature</span>
+                    <span style="color: var(--warning-color); font-weight: 500;">Due in 3 days</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 30%; background: var(--warning-color);"></div>
+                </div>
+            </div>
+            <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Client meeting preparation</span>
+                    <span style="color: var(--success-color); font-weight: 500;">Due next week</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 15%; background: var(--success-color);"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Announcements Card -->
+        <div class="card full-width-card">
+            <div class="card-header">
+                <h2>Recent Announcements</h2>
+                <div class="icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div style="padding: 1rem; background-color: #f9f9f9; border-radius: 6px;">
+                    <div style="font-weight: 500; margin-bottom: 0.5rem;">Office Renovation Notice</div>
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">The office will undergo renovation from 20-25 June. All employees are required to work remotely.</div>
+                    <div style="font-size: 0.8rem; color: var(--primary-color);">Posted: 10 June 2025</div>
+                </div>
+                <div style="padding: 1rem; background-color: #f9f9f9; border-radius: 6px;">
+                    <div style="font-weight: 500; margin-bottom: 0.5rem;">New HR Policy Update</div>
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">The company has updated its leave policy. Each employee now gets 2 additional casual leaves per year.</div>
+                    <div style="font-size: 0.8rem; color: var(--primary-color);">Posted: 5 June 2025</div>
+                </div>
+                <div style="padding: 1rem; background-color: #f9f9f9; border-radius: 6px;">
+                    <div style="font-weight: 500; margin-bottom: 0.5rem;">Annual Health Checkup</div>
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">The annual health checkup camp will be organized on 15 July. Registration is mandatory for all employees.</div>
+                    <div style="font-size: 0.8rem; color: var(--primary-color);">Posted: 1 June 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+</div>

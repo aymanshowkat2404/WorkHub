@@ -1,0 +1,77 @@
+<div class="main-content">
+  <div class="header">
+    <h1>Support Center</h1>
+  </div>
+    <div class="support-cards">
+      <!-- View Tickets Card -->
+      <div class="support-card" (click)="navigateTo('view-tickets')">
+        <div class="card-icon">
+          <i class="fas fa-ticket-alt"></i>
+        </div>
+        <h3>View Tickets/Complaints</h3>
+        <p>Access and manage all employee support tickets</p>
+      </div>
+  
+      <!-- Respond to Queries Card -->
+      <div class="support-card" (click)="navigateTo('respond-queries')">
+        <div class="card-icon">
+          <i class="fas fa-reply"></i>
+        </div>
+        <h3>Respond to Queries</h3>
+        <p>Answer employee questions and resolve issues</p>
+      </div>
+  
+      <!-- Support History Card -->
+      <div class="support-card" (click)="navigateTo('support-history')">
+        <div class="card-icon">
+          <i class="fas fa-history"></i>
+        </div>
+        <h3>Maintain Support History</h3>
+        <p>Track and review past support interactions</p>
+      </div>
+    </div>
+  
+    <div class="support-stats">
+      <div class="stat-card">
+        <h4>Open Tickets</h4>
+        <p class="stat-value">{{ stats.openTickets }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Avg. Response Time</h4>
+        <p class="stat-value">{{ stats.avgResponseTime }}h</p>
+      </div>
+      <div class="stat-card">
+        <h4>Satisfaction Rate</h4>
+        <p class="stat-value">{{ stats.satisfactionRate }}%</p>
+      </div>
+    </div>
+  
+    <div class="support-actions">
+      <button class="action-button primary" (click)="createTicket()">
+        <i class="fas fa-plus"></i> Create New Ticket
+      </button>
+      <button class="action-button secondary" (click)="escalatePriority()">
+        <i class="fas fa-exclamation-triangle"></i> Escalate Priority
+      </button>
+    </div>
+  
+    <div class="recent-tickets">
+      <h2>Recent Support Tickets</h2>
+      <div class="ticket-item" *ngFor="let ticket of recentTickets" [class.urgent]="ticket.priority === 'High'">
+        <div class="ticket-header">
+          <h3>#{{ ticket.id }} - {{ ticket.title }}</h3>
+          <span class="ticket-priority" [class]="'priority-' + ticket.priority.toLowerCase()">
+            {{ ticket.priority }}
+          </span>
+        </div>
+        <p class="ticket-description">{{ ticket.description }}</p>
+        <div class="ticket-footer">
+          <span class="ticket-author">Submitted by {{ ticket.author }}</span>
+          <span class="ticket-date">{{ ticket.date }}</span>
+          <span class="ticket-status" [class]="'status-' + ticket.status.toLowerCase()">
+            {{ ticket.status }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
