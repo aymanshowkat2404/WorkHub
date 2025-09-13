@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/employees")  // Unified path
+@RequestMapping("/api/employees")  
 @RequiredArgsConstructor
 public class EmployeeController {
 
